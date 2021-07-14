@@ -6,16 +6,20 @@ var morgan = require('morgan');
 var exphbs  = require('express-handlebars');
 // Nạp thư viện path
 var path = require('path')
-
+// Nạp thư viện sass
 var sass = require('sass')
 // Gọi func như dưới, tương ứng sẽ tạo ra một instance gán cho app
 // Như một đối tượng, sự dụng xuyên suốt trong quá trình xây dựng và chạy chương trình
 const app = express()
-// Cổng 
+// Cổng  
 const port = 3000
 
 // Xử lý static file
 app.use(express.static(path.join(__dirname,"public")));
+// Xử lý middleware từ client gửi lên server
+app.use(express.urlencoded());
+// Xử lý client gửi các file js lên server
+app.use(express.json());
 
 // HTTP logger
 app.use(morgan('combined'))
@@ -30,22 +34,11 @@ app.set('view engine', 'handlebars');
 // Reset đường dẫn
 app.set('views', path.join(__dirname, 'resources/views/'));
 
-// Đường dẫn - hướng (route)
-// func thường có dạng func(){...}
-// Dưới đây ở dạng arrow func
-// Tức sẽ bỏ chữ func thay vào đó dùng mũi tên ở phía sau
-app.get('/',(req, res) => {
-    // Render: Chuyển hướng
-    res.render('home');
-    // Send: Truyền thông tin
-    // res.send('Hello World')
-})
-app.get('/news',(req, res) => {
-    // Render: Chuyển hướng
-    res.render('news');
-    // Send: Truyền thông tin
-    // res.send('Hello World')
-})
+// Khai báo đường dẫn trỏ đến thư mục routers
+const route = require('./routes');
+
+//init routers
+route(app);
 
 // 127.0.0.1 = localhost
 app.listen(port, () => {
