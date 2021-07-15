@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/application.js",
-  "scripts": {
+  "scripts": { 
     "start": "nodemon --inspect src/application.js",
     "watch": "sass --watch src/resources/scss/app.scss src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,9 +26,20 @@
     "url": "https://github.com/LeVanToan-it/Nodejs_blog/issues"
   },
   "homepage": "https://github.com/LeVanToan-it/Nodejs_blog#readme",
+  "lint-staged":{
+    "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+  },
+  "husky":{
+    "hooks":{
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.2"
+    "express-handlebars": "^5.3.2",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.0.1",
+    "prettier": "^2.3.2"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
