@@ -3,9 +3,13 @@
 // Nên phải khai báo một biến import từ file news
 const newRouter = require('./news');
 const homeRouter = require('./home');
+const courseRouter = require('./courses');
+const meRouter = require('./me');
 //const homeRouter = require('./home');
 
 function route(app) {
+    app.use('/me',meRouter);
+    app.use('/courses', courseRouter);
     // Cú pháp định tuyến được hướng dẫn trên hệ thống
     // Router1 '/news' là định nghĩa đường dẫn
     // Router2 newRouter được hiểu là cấp con, nhỏ hơn Router1
