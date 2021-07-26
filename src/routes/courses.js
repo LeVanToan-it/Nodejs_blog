@@ -11,7 +11,7 @@ route.post('/store', courseController.store);
 
 route.get('/:id/edit', courseController.edit);
 
-route.get('/:id/delete', courseController.delete);
+route.delete('/:id', courseController.delete);
 
 route.put('/:id', courseController.update);
 

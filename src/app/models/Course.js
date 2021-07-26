@@ -13,7 +13,7 @@ const Course = new Schema({
     'image': String,
     'VideoId': String,
     'createdAt': {type: Date, default: Date.now},
-    slug: { type: String, slug: 'name' }
+    slug: { type: String, slug: 'name', unique: true }
 },{
     timestamp: true
 });

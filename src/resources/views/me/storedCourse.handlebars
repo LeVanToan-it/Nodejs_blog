@@ -19,10 +19,48 @@
         <td>{{this.createdAt}}</td>
         <td>
             <a type="button" href="/courses/{{this._id}}/edit" class="btn btn-link" name="update">Update</a>
-            <a type="button" href="/courses/{{this._id}}/delete" class="btn btn-link" name="delete">Delete</a>
+            <a type="button" href="" class="btn btn-link" name="delete" data-toggle="modal" data-target="#delete-course-modal" data-id="{{this._id}}">Delete</a>
         </td>
         </tr>
         {{/each}}
     </tbody>
     </table>
 </div>
+<!--Form confirm modal-->
+<div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Are you sure delete this course?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btn-delete-course">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" name="form-delete-course"></form>
+
+<!--Script-->
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      var courseID;
+      var btnDeleteCourse = document.getElementById('btn-delete-course');
+      var formDeleteCourse = document.forms['form-delete-course'];
+
+      $('#delete-course-modal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) 
+          courseID = button.data('id') 
+      });
+
+      btnDeleteCourse.onclick = function(){
+        formDeleteCourse.action= '/courses/'+courseID+'?_method=DELETE';
+        formDeleteCourse.submit();
+      }
+    });
+</script>
